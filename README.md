@@ -6,7 +6,7 @@ Repositorio que muestra la integración de una cadena de herramientas en la nube
 ![Alt workflow](assets/workflow.png?raw=true "Workflow")
 
 
-Puedes descargar las slides de la sesión desde![este enlance](assets/slides.pdf "ToolChain").
+Puedes descargar las slides de la sesión desde[este enlance](assets/slides.pdf "ToolChain").
 
 
 ## Como comenzar
