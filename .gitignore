@@ -1,0 +1,16 @@
+**/.DS_Store
+
+# Local .terraform directories
+**/.terraform/*
+
+# Local temporary plans
+**/*.tfplan
+
+# Local state files
+*.tfstate
+*.tfstate.*
+
+# The following are outputs supplied to k8s after the main TF stage
+**/*_vars.json
+plan
+
