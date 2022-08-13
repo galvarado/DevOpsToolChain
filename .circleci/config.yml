@@ -2,7 +2,7 @@ version: 2
 
 jobs:
   plan-apply:
-    working_directory: /tmp/project
+    working_directory: terraform/002-ec2
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
