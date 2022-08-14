@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Build image with packer
           command: |
-            packer build --var-file=vars.packer.hcl packer/aws-ubuntu-nginx.pkr.hcl
+            packer build --var-file=packer/vars.packer.hcl packer/aws-ubuntu-nginx.pkr.hcl
 
 workflows:
 
