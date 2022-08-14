@@ -24,7 +24,6 @@ variable "instance_type" {
 }
 
 
-
 provider "aws" {
   region = var.aws_region
 }
