@@ -34,9 +34,7 @@ workflows:
     - packer-build:
         context:
           - packer
-        filters:
-          branches:
-            only: /build\/.*/
+
 
   deploy_infrastructure:
     jobs:
