@@ -14,6 +14,7 @@ jobs:
       - ANSIBLE_HOST_KEY_CHECKING: False
       - ANSIBLE_LOCAL_TEMP: /home/circleci/.ansible/tmp
       - ANSIBLE_REMOTE_TEMP: /home/circleci/.ansible/tmp
+      - ANSIBLE_LOCAL_TEMP:  /tmp/.ansible-${USER}/tmp
     steps:
       - checkout
       - run:
