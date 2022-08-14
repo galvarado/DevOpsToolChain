@@ -90,9 +90,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install ansible
+          name: Install packages
           command: |
-             apk add -curl
+             apk add curl
       - run:
           name: Packer init
           command: |
@@ -110,9 +110,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install ansible
+          name: Install packages
           command: |
-             apk add -curl
+             apk add curl
       - terraform/init:
           path: terraform/001-ec2
       - terraform/validate:
@@ -127,9 +127,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install ansible
+          name: Install packages
           command: |
-             apk add -curl
+             apk add curl
       - terraform/apply:
           path: terraform/001-ec2
       - notify-success
@@ -140,9 +140,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install ansible
+          name: Install curl
           command: |
-             apk add -curl
+             apk add curl
       - terraform/destroy:
           path: terraform/001-ec2
       - notify-success
