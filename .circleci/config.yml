@@ -114,6 +114,8 @@ workflows:
             only: /^build$/
           branches:
             ignore: /.*/
+    - notify-success
+    - notify-error
 
 
   deploy_infrastructure:
@@ -122,6 +124,8 @@ workflows:
         path: terraform/001-ec2
         checkout: true
         context: terraform
+    - notify-success
+    - notify-error
     - terraform/plan:
         path: terraform/001-ec2
         checkout: true
@@ -129,6 +133,8 @@ workflows:
         persist-workspace: true
         requires:
         - terraform/validate
+    - notify-success
+    - notify-error
     - terraform/apply:
         path: terraform/001-ec2
         attach-workspace: true
@@ -138,6 +144,8 @@ workflows:
             only: main
         requires:
         - terraform/plan
+    - notify-success
+    - notify-error
   
   destroy_infrastructure:
     jobs:
@@ -151,3 +159,5 @@ workflows:
             only: /^destroy$/
           branches:
             ignore: /.*/
+    - notify-success
+    - notify-error
