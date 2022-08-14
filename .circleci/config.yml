@@ -35,7 +35,7 @@ workflows:
         context:
           - packer
         filters:
-             tags:
+            tags:
               only: /^build$/
 
 
@@ -66,7 +66,8 @@ workflows:
     jobs:
     - terraform/destroy:
         path: terraform/001-ec2
+        checkout: true
         context: terraform
         filters:
-             tags:
+            tags:
               only: /^destroy$/
