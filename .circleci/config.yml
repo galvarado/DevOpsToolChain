@@ -9,5 +9,3 @@ workflows:
           context: terraform
           path: terraform/001-ec2
           persist-workspace: true
-          requires:
-            - terraform/validate
