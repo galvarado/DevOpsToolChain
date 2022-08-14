@@ -1,11 +1,91 @@
 version: '2.1'
 orbs:
   terraform: circleci/terraform@3.1.0
+  slack:   circleci/slack@4.9.3
+
 
 executors:
   packer:
     docker:
       - image: 'hashicorp/packer:light'
+
+
+commands:
+
+
+  notify-success:
+    description: "Custom slack notification"
+    steps:
+      - slack/notify:
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":white_check_mark: A $CIRCLE_JOB job has succeeded"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Project:* $CIRCLE_PROJECT_REPONAME"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View Job"
+                    },
+                    "value": "view_job",
+                    "url": "${CIRCLE_BUILD_URL}",
+                    "action_id": "button-action"
+                  }
+                }
+              ]
+            }
+  
+  notify-error:
+    description: "Custom slack notification"
+    parameters:
+      message:
+        type: string
+        default: ""
+    steps:
+      - slack/notify:
+          event: fail
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":red_circle: A $CIRCLE_JOB job has failed"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Project:* $CIRCLE_PROJECT_REPONAME"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View Job"
+                    },
+                    "value": "view_job",
+                    "url": "${CIRCLE_BUILD_URL}",
+                    "action_id": "button-action"
+                  }
+                }
+              ]
+            }
 
 jobs:
   packer-build:
@@ -20,6 +100,7 @@ jobs:
           name: Build image with packer
           command: |
             packer build --var-file=packer/vars.packer.hcl packer/aws-ubuntu-nginx.pkr.hcl
+
 
 workflows:
 
