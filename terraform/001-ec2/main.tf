@@ -102,3 +102,4 @@ resource "aws_instance" "webserver" {
     Name = "${var.vm_name}-by-terraform"
   }
 }
+
