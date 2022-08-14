@@ -5,7 +5,7 @@ orbs:
 executors:
   packer:
     docker:
-      - image: 'hachicorpt/packer:light'
+      - image: 'hashicorp/packer:light'
 
 jobs:
   packer-build:
