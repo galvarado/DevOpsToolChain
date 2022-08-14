@@ -19,13 +19,13 @@ jobs:
              apk add --no-cache py3-pip
              apk add ansible
 
-
       - run:
           name: Packer init
           command: |
             packer init packer/
       - run:
           name: Build image with packer
+          context: packer
           command: |
             packer build --var-file=packer/vars.packer.hcl packer/aws-ubuntu-nginx.pkr.hcl
 
