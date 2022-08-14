@@ -23,8 +23,6 @@ variable "instance_type" {
   type    = string
 }
 
-
-
 provider "aws" {
   region = var.aws_region
 }
@@ -51,7 +49,6 @@ data "aws_ami" "webserver" {
   
 }
 
-
 data "aws_vpc" "default" {
   default  = true
 }
@@ -63,13 +60,6 @@ resource "aws_security_group" "web" {
   ingress {
     from_port        = 80
     to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port        = 22
-    to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
