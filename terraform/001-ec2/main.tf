@@ -34,7 +34,7 @@ data "aws_ami" "webserver" {
 
   filter {
     name   = "name"
-    values = ["${var.packer_ami_name}"]
+    values = ["${var.packer_ami_name}*"]
   }
 
   filter {

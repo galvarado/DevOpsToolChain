@@ -10,23 +10,8 @@ executors:
 jobs:
   packer-build:
     executor: packer
-    environment:
-      - ANSIBLE_HOST_KEY_CHECKING: False
-      - ANSIBLE_LOCAL_TEMP: /home/circleci/.ansible/tmp
-      - ANSIBLE_REMOTE_TEMP: /home/circleci/.ansible/tmp
-      - ANSIBLE_LOCAL_TEMP:  /tmp/.ansible-${USER}/tmp
     steps:
       - checkout
-      - run:
-          name: Install ansible
-          command: |
-             apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
-             apk add --no-cache py3-pip
-             apk add ansible
-      - run:
-          name: Packer init
-          command: |
-            packer init packer/
       - run:
           name: Build image with packer
           command: |

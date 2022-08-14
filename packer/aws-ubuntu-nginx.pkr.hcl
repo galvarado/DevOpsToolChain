@@ -43,11 +43,10 @@ source "amazon-ebs" "ubuntu" {
 build {
   sources = ["source.amazon-ebs.ubuntu"]
 
-  provisioner "ansible" {
-      playbook_file = "ansible/install_nginx.yml"
+  provisioner "shell" {
+    script = "scripts/setup.sh"
+    # Run script after cloud-init finishes, otherwise you run into race conditions
+    execute_command = "/usr/bin/cloud-init status --wait && sudo -E -S sh '{{ .Path }}'"
   }
 
-  post-processor "shell-local" {
-    inline = ["echo foo"]
-  }
 }
