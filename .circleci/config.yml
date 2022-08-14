@@ -13,6 +13,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install ansible
+          command: |
+            apk update && apk add --no-cache musl-dev libffi-dev openssl-dev make gcc python py2-pip python-dev
+            pip install cffi
+            pip install ansible
+      - run:
           name: Packer init
           command: |
             packer init packer/
