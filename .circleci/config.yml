@@ -130,6 +130,7 @@ jobs:
   
   terraform-destroy:
     executor: python3
+    steps:
       - checkout
       - terraform/destroy:
           path: terraform/001-ec2
