@@ -175,6 +175,8 @@ workflows:
         context:
           - terraform
           - Slack
+        requires:
+          - terraform-plan
         filters:
           branches:
             only: main
