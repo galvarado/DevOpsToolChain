@@ -37,6 +37,8 @@ workflows:
         filters:
           tags:
             only: /^build$/
+          branches:
+            ignore: /.*/
 
 
   deploy_infrastructure:
@@ -71,3 +73,5 @@ workflows:
         filters:
           tags:
             only: /^destroy$/
+          branches:
+              ignore: /.*/
