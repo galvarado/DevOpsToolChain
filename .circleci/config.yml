@@ -115,7 +115,6 @@ jobs:
           path: terraform/001-ec2
       - notify-success
       - notify-error
-    working_directory: terraform/001-ec2
 
   terraform-apply:
     executor: terraform/default
@@ -125,7 +124,6 @@ jobs:
           path: terraform/001-ec2
       - notify-success
       - notify-error
-    working_directory: terraform/001-ec2
   
   terraform-destroy:
     executor: terraform/default
@@ -135,7 +133,6 @@ jobs:
           path: terraform/001-ec2
       - notify-success
       - notify-error
-    working_directory: terraform/001-ec2
 
 
 
