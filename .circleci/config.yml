@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Packer init
           command: |
-            cd packer && packer init
+            packer init packer/
       - run:
           name: Build image with packer
           command: |
