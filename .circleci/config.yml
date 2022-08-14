@@ -7,14 +7,17 @@ workflows:
       - terraform/fmt:
           checkout: true
           context: terraform
+          path: terraform/001-ec2
       - terraform/validate:
           checkout: true
           context: terraform
+          path: terraform/001-ec2
           requires:
             - terraform/fmt
       - terraform/plan:
           checkout: true
           context: terraform
+          path: terraform/001-ec2
           persist-workspace: true
           requires:
             - terraform/validate
