@@ -144,6 +144,7 @@ workflows:
     - packer-build:
         context:
           - packer
+          - Slack
         filters:
           tags:
             only: /^build$/
@@ -155,9 +156,11 @@ workflows:
     - terraform-plan:
         context:
           - terraform
+          - Slack
     - terraform-apply:
         context:
           - terraform
+          - Slack
         filters:
           branches:
             only: main
@@ -167,6 +170,7 @@ workflows:
     - terraform-destroy:
         context:
           - terraform
+          - Slack
         filters:
           tags:
             only: /^destroy$/
