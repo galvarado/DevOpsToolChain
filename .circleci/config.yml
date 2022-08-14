@@ -136,9 +136,13 @@ jobs:
       - notify-error
   
   terraform-destroy:
-    executor: python3
+    executor: terraform/default
     steps:
       - checkout
+      - run:
+          name: Install ansible
+          command: |
+             apk add -curl
       - terraform/destroy:
           path: terraform/001-ec2
       - notify-success
