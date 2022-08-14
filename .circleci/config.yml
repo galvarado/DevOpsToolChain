@@ -8,11 +8,6 @@ executors:
     docker:
       - image: 'hashicorp/packer:light'
   
-  python3:
-    docker:
-      - image: 'cimg/python:3.10'
-
-
 commands:
 
   notify-success:
@@ -95,6 +90,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install packages
+          command: |
+            apk add curl
+      - run:
           name: Packer init
           command: |
             packer init packer/
@@ -107,9 +106,13 @@ jobs:
 
 
   terraform-plan:
-    executor: python3
+    executor: terraform/default
     steps:
       - checkout
+      - run:
+        name: Install packages
+        command: |
+          apk add curl
       - terraform/init:
           path: terraform/001-ec2
       - terraform/validate:
@@ -120,9 +123,13 @@ jobs:
       - notify-error
 
   terraform-apply:
-    executor: python3
+    executor: terraform/default
     steps:
       - checkout
+      - run:
+        name: Install packages
+        command: |
+          apk add curl
       - terraform/apply:
           path: terraform/001-ec2
       - notify-success
