@@ -2,7 +2,7 @@ version: '2.1'
 orbs:
   terraform: circleci/terraform@3.1
 jobs:
-  dplan-and-apply:
+  plan-and-apply:
     executor: terraform/default
     steps:
       - checkout
@@ -16,13 +16,13 @@ jobs:
           path: .
       - terraform/init:
           backend: true
-          backend_config_file: backend.hcl
+          backend_config_file: backend.tf
           path: terraform/001-ec2
       - terraform/plan:
-          backend_config_file: backend.hcl
+          backend_config_file: backend.tf
           path: terraform/001-ec2
       - terraform/apply:
-          backend_config_file: backend.hcl
+          backend_config_file: backend.tf
           path: terraform/001-ec2
 
 
