@@ -66,6 +66,13 @@ resource "aws_security_group" "web" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
+    ingress {
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
@@ -79,10 +86,17 @@ resource "aws_security_group" "web" {
   }
 }
 
+resource "aws_key_pair" "deployer" {
+  key_name   = "deployer-key"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
 resource "aws_instance" "webserver" {
   ami           = data.aws_ami.webserver.id
   instance_type = var.instance_type
   security_groups = [aws_security_group.web.name]
+  key_name         = "deployer-key"
+
   tags = {
     Env  = "DEMO"
     Name = "${var.vm_name}-by-terraform"

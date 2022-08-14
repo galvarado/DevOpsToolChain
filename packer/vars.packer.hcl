@@ -1,2 +1,2 @@
-ami_name   = "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*"
+ami_name   = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
 aws_region = "us-west-2"
