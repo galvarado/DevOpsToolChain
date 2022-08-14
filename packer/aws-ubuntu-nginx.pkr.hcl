@@ -21,7 +21,7 @@ packer {
 }
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "PACKER-DEMO-${local.app_name}"
+  ami_name      = "PACKER-DEMO-${local.app_name}-{{timestamp}}"
   instance_type = "t2.micro"
   region        = "${var.aws_region}"
   source_ami_filter {
@@ -36,7 +36,7 @@ source "amazon-ebs" "ubuntu" {
   ssh_username  = "ubuntu"
   tags = {
     Env  = "DEMO"
-    Name = "PACKER-DEMO-${local.app_name}"
+    Name = "PACKER-DEMO-${local.app_name}-{{timestamp}}"
   }
 }
 
