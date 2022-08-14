@@ -10,6 +10,10 @@ executors:
 jobs:
   packer-build:
     executor: packer
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING: False
+      - ANSIBLE_LOCAL_TEMP: /home/circleci/.ansible/tmp
+      - ANSIBLE_REMOTE_TEMP: /home/circleci/.ansible/tmp
     steps:
       - checkout
       - run:
@@ -69,6 +73,7 @@ workflows:
     - terraform/destroy:
         path: terraform/001-ec2
         checkout: true
+        attach-workspace: true
         context: terraform
         filters:
           tags:
