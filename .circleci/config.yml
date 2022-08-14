@@ -1,11 +1,26 @@
 version: '2.1'
 orbs:
-  terraform: circleci/terraform@3.1
+  terraform: circleci/terraform@3.1.0
 workflows:
-  deploy_infrastructure:
+  deploy_infra:
     jobs:
-      - terraform/plan:
-          checkout: true
-          context: terraform
-          path: terraform/001-ec2
-          persist-workspace: true
+    - terraform/validate:
+        path: terraform/001-ec2
+        checkout: true
+        context: terraform
+    - terraform/plan:
+        path: terraform/001-ec2
+        checkout: true
+        context: terraform
+        persist-workspace: true
+        requires:
+        - terraform/validate
+    - terraform/apply:
+        path: terraform/001-ec2
+        attach-workspace: true
+        context: terraform
+        filters:
+          branches:
+            only: master
+        requires:
+        - terraform/plan
