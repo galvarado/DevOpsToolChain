@@ -74,4 +74,4 @@ workflows:
           tags:
             only: /^destroy$/
           branches:
-              ignore: /.*/
+            ignore: /.*/
