@@ -35,8 +35,8 @@ workflows:
         context:
           - packer
         filters:
-            tags:
-              only: /^build$/
+          tags:
+            only: /^build$/
 
 
   deploy_infrastructure:
@@ -69,5 +69,5 @@ workflows:
         checkout: true
         context: terraform
         filters:
-            tags:
-              only: /^destroy$/
+          tags:
+            only: /^destroy$/
