@@ -88,7 +88,7 @@ resource "aws_security_group" "web" {
 
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = file("../ssh-keys/id_rsa.pub")
 }
 
 resource "aws_instance" "webserver" {
