@@ -155,19 +155,19 @@ workflows:
   
   deploy-infrastructure:
     jobs:
-    - terraforme-plan:
+    - terraform-plan:
         context:
           - terraform
-     terraforme-apply:
+    - terraform-apply:
         context:
           - terraform
         filters:
           branches:
             only: main
 
-    remove-infrastructure:
+  remove-infrastructure:
     jobs:
-    - terraforme-destroy:
+    - terraform-destroy:
         context:
           - terraform
         filters:
