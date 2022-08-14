@@ -1,11 +1,33 @@
 version: '2.1'
 orbs:
   terraform: circleci/terraform@3.1
-workflows:
-  deploy_infrastructure:
-    jobs:
-      - terraform/plan:
-          checkout: true
-          context: terraform
+jobs:
+  dplan-and-apply:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/install:
+          arch: amd64
+          os: linux
+          terraform_version: 1.2.0
+      - terraform/fmt:
           path: terraform/001-ec2
-          persist-workspace: true
+      - terraform/validate:
+          path: .
+      - terraform/init:
+          backend: true
+          backend_config_file: backend.hcl
+          path: terraform/001-ec2
+      - terraform/plan:
+          backend_config_file: backend.hcl
+          path: terraform/001-ec2
+      - terraform/apply:
+          backend_config_file: backend.hcl
+          path: terraform/001-ec2
+
+
+
+workflows:
+  deploy-ec2:
+    jobs:
+      - plan-and-apply
