@@ -3,15 +3,12 @@ orbs:
   terraform: circleci/terraform@3.1.0
   slack:   circleci/slack@4.9.3
 
-
 executors:
   packer:
     docker:
       - image: 'hashicorp/packer:light'
 
-
 commands:
-
 
   notify-success:
     description: "Custom slack notification"
@@ -100,6 +97,47 @@ jobs:
           name: Build image with packer
           command: |
             packer build --var-file=packer/vars.packer.hcl packer/aws-ubuntu-nginx.pkr.hcl
+      - notify-success
+      - notify-error
+
+
+  terraform-plan:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/init:
+          path: .
+      - terraform/validate:
+          path: .
+      - terraform/fmt:
+          path: .
+      - terraform/plan:
+          path: .
+      - notify-success
+      - notify-error
+    working_directory: terraform/001-ec2
+
+  terraform-apply:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/apply:
+          path: .
+      - notify-success
+      - notify-error
+    working_directory: terraform/001-ec2
+  
+  terraform-destroy:
+    executor: terraform/default
+    steps:
+      - checkout
+      - terraform/destroy:
+          path: .
+      - notify-success
+      - notify-error
+    working_directory: terraform/001-ec2
+
+
 
 
 workflows:
@@ -114,50 +152,27 @@ workflows:
             only: /^build$/
           branches:
             ignore: /.*/
-    - notify-success
-    - notify-error
-
-
-  deploy_infrastructure:
+  
+  deploy-infrastructure:
     jobs:
-    - terraform/validate:
-        path: terraform/001-ec2
-        checkout: true
-        context: terraform
-    - notify-success
-    - notify-error
-    - terraform/plan:
-        path: terraform/001-ec2
-        checkout: true
-        context: terraform
-        persist-workspace: true
-        requires:
-        - terraform/validate
-    - notify-success
-    - notify-error
-    - terraform/apply:
-        path: terraform/001-ec2
-        attach-workspace: true
-        context: terraform
+    - terraforme-plan:
+        context:
+          - terraform
+     terraforme-apply:
+        context:
+          - terraform
         filters:
           branches:
             only: main
-        requires:
-        - terraform/plan
-    - notify-success
-    - notify-error
-  
-  destroy_infrastructure:
+
+    remove-infrastructure:
     jobs:
-    - terraform/destroy:
-        path: terraform/001-ec2
-        checkout: true
-        attach-workspace: true
-        context: terraform
+    - terraforme-destroy:
+        context:
+          - terraform
         filters:
           tags:
             only: /^destroy$/
           branches:
             ignore: /.*/
-    - notify-success
-    - notify-error
+     
