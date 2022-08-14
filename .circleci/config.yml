@@ -16,6 +16,9 @@ jobs:
           name: Install ansible
           command: |
              apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+             apk add --no-cache py3-pip
+             apk add ansible
+
 
       - run:
           name: Packer init
