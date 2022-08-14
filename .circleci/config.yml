@@ -7,6 +7,11 @@ executors:
   packer:
     docker:
       - image: 'hashicorp/packer:light'
+  
+  python3:
+    docker:
+      - image: 'cimg/python:3.10'
+
 
 commands:
 
@@ -102,14 +107,12 @@ jobs:
 
 
   terraform-plan:
-    executor: terraform/default
+    executor: python3
     steps:
       - checkout
       - terraform/init:
           path: terraform/001-ec2
       - terraform/validate:
-          path: terraform/001-ec2
-      - terraform/fmt:
           path: terraform/001-ec2
       - terraform/plan:
           path: terraform/001-ec2
@@ -117,7 +120,7 @@ jobs:
       - notify-error
 
   terraform-apply:
-    executor: terraform/default
+    executor: python3
     steps:
       - checkout
       - terraform/apply:
@@ -126,8 +129,7 @@ jobs:
       - notify-error
   
   terraform-destroy:
-    executor: terraform/default
-    steps:
+    executor: python3
       - checkout
       - terraform/destroy:
           path: terraform/001-ec2
