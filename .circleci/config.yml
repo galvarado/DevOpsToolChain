@@ -34,6 +34,9 @@ workflows:
     - packer-build:
         context:
           - packer
+        filters:
+             tags:
+              only: /^build$/
 
 
   deploy_infrastructure:
@@ -58,3 +61,12 @@ workflows:
             only: main
         requires:
         - terraform/plan
+  
+  destroy_infrastructure:
+    jobs:
+    - terraform/destroy:
+        path: terraform/001-ec2
+        context: terraform
+        filters:
+             tags:
+              only: /^destroy$/
