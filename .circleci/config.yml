@@ -31,12 +31,12 @@ workflows:
 
   build-image:
     jobs:
-      - packer-build:
-         context:
-            - packer
+    - packer-build:
+        context:
+          - packer
         filters:
-            branches:
-              only: /build\/.*/
+          branches:
+            only: /build\/.*/
 
   deploy_infrastructure:
     jobs:
