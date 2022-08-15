@@ -9,7 +9,7 @@ Hoy la infraestructura de TI debe ser una ventaja competitiva; ya que determina 
 En esta charla, comparto algunas lecciones aprendidas sobre las mejores prácticas y herramientas para lograrlo. Hablaremos sobre Infraestructura como código con terraform y packer, así como herramientas de automatización como cloud-init y ansible y la importancia de las herramientas GitOps y los flujos de trabajo de CI/CD en la gestión del SDLC en el mercado actual.
 
 - Esta sesión tuvo lugar en vivo el Lunes 15 de Agosto en el marco del OpenInfraDays México: https://openinfradays.mx/
-- La grabación de la sesión está disponible [en Youtube](https://www.youtube.com/channel/UCpB__-WAEyHdvKAK0Y15akQ).
+- La grabación de la sesión está disponible [en Youtube](https://www.youtube.com/watch?v=9DJHsmtMArQ).
 - Puedes descargar las slides de la sesión desde [aquí](assets/slides.pdf).
 
 
