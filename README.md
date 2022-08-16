@@ -1,4 +1,4 @@
-# DevOpsToolChain
+# devops-toolchain
 Repositorio que muestra la integración de una cadena de herramientas en la nube para implementar aplicaciones utilizando conceptos de infraestructura como código. Usamos circleci, packer, terraform y ansible para implementar una aplicación en AWS. Preparado para https://openinfradays.mx/
 
 ## Abstract
